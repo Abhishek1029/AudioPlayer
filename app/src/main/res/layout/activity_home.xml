@@ -6,18 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.activity.HomeActivity">
 
-    <TextView
-        android:id="@+id/tv_mohan"
+
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hi"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tabGravity="center"
+        android:id="@+id/tab"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="@color/black"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
