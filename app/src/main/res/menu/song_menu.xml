@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+         android:id="@+id/playlist"
+        android:title="@string/add_to_playlist"
+         android:icon="@drawable/menu_icon"
+        />
+
+    <item
+        android:id="@+id/favourite"
+        android:title="@string/favourite"
+        android:icon="@drawable/ic_launcher_background"
+        />
+    <item
+        android:id="@+id/delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_launcher_background"
+        />
+</menu>

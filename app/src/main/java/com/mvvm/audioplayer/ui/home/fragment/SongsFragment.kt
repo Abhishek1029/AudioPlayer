@@ -1,60 +1,73 @@
 package com.mvvm.audioplayer.ui.home.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvvm.audioplayer.R
+import com.mvvm.audioplayer.data.SongsModel
+import com.mvvm.audioplayer.databinding.FragmentSongsBinding
+import com.mvvm.audioplayer.ui.home.provider.SongsFactory
+import com.mvvm.audioplayer.ui.home.repository.SongsRepository
+import com.mvvm.audioplayer.ui.home.viewmodel.SongsViewModel
+import com.mvvm.audioplayer.ui.onboarding.adapter.SongsListAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SongsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SongsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    var songsViewModel: SongsViewModel? = null
+    var fragmentSongsBinding:FragmentSongsBinding?=null
+    var songsListAdapter:SongsListAdapter?=null
+    var songsList:ArrayList<SongsModel> = ArrayList()
+    var repo: SongsRepository?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        repo = SongsRepository(requireActivity())
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_songs, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        songsViewModel = ViewModelProvider(this, SongsFactory(repo!!)).get(SongsViewModel::class.java)
+        songsListAdapter =SongsListAdapter(requireActivity(),songsList)
+
+        fragmentSongsBinding!!.songRecycler.apply {
+            this.setHasFixedSize(true)
+            this.layoutManager=LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
+            this.adapter =songsListAdapter
+        }
+
+        songsViewModel!!.getSongsList()
+        observeSongData()
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SongsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SongsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        fragmentSongsBinding = FragmentSongsBinding.inflate(inflater,container,false)
+        return fragmentSongsBinding!!.root
     }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun observeSongData()
+    {
+        songsViewModel!!.songslist.observe(viewLifecycleOwner, Observer {
+            songsList.addAll(it)
+
+            songsListAdapter!!.notiydata(songsList)
+        })
+    }
+
 }
