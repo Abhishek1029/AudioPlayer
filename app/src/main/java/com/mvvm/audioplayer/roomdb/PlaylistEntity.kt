@@ -1,8 +1,6 @@
 package com.mvvm.audioplayer.roomdb
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "Playlist")
 data class PlaylistEntity(
@@ -20,5 +18,9 @@ val path:String,
  val image:String,
  @ColumnInfo (name = "artistname")
  val artistname:String,
+
+ @TypeConverters(DateTypeConverter::class)
+ @ColumnInfo(name = "timestamp")
+  var timestamp:Int,
 
  val albumid:String)

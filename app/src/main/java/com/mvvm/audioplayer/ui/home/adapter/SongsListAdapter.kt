@@ -33,7 +33,7 @@ class SongsListAdapter(var context: Context, var songsList: ArrayList<SongsModel
         holder.binding.songTitle.text = songsList[position].songTitle
         holder.binding.artistName.text = songsList[position].artistName
         holder.binding.albumName.text = songsList[position].albumName
-        holder.binding.songImage.setImageBitmap(coverpicture(songsList[position].path))
+       // holder.binding.songImage.setImageBitmap(coverpicture(songsList[position].path))
 
         holder.binding.menuIcon.setOnClickListener {
             val menu = PopupMenu(context, holder.binding.menuIcon)

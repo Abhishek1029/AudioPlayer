@@ -15,19 +15,18 @@ import com.mvvm.audioplayer.utils.extensions.getString
 
 class PlayListRepository(var context: Context, private val database: AudioPlayerDB) {
 
-    var playlistItme=MutableLiveData<ArrayList<PlaylistEntity>>()
+    var playlistItme=MutableLiveData<List<PlaylistEntity>>()
 
     fun addPlayListItem()
     {
 
-        val roomDatabase =database.playlistDao().addPlaylist()
+     //   val roomDatabase =database.playlistDao().addPlaylist()
 
     }
 
-    fun readPlaylistItem()
+    suspend fun readPlaylistItem():MutableLiveData<List<PlaylistEntity>>
     {
-
-        playlistItme =database.playlistDao().getPlayList()
-
+        playlistItme.postValue(database.playlistDao().getPlayList())
+        return playlistItme
     }
 }

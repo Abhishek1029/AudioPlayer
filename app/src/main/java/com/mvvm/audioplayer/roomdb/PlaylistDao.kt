@@ -8,11 +8,9 @@ import androidx.room.Query
 
 @Dao()
 interface PlaylistDao {
-
-//      var a:Int
       @Query("Select * from playlist")
-      fun getPlayList():List<PlaylistEntity>
+      suspend fun getPlayList():List<PlaylistEntity>
 
       @Insert(onConflict = IGNORE)
-      fun addPlaylist(playlistEntity: PlaylistEntity)
+      suspend fun addPlaylist(playlistEntity: PlaylistEntity)
 }
