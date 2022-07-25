@@ -29,12 +29,7 @@ class SongsListAdapter(var context: Context, var songsList: ArrayList<SongsModel
     }
 
     override fun onBindViewHolder(holder: SongsHolder, position: Int) {
-
-        holder.binding.songTitle.text = songsList[position].songTitle
-        holder.binding.artistName.text = songsList[position].artistName
-        holder.binding.albumName.text = songsList[position].albumName
-       // holder.binding.songImage.setImageBitmap(coverpicture(songsList[position].path))
-
+        bindData(holder.binding,songsList[position])
         holder.binding.menuIcon.setOnClickListener {
             val menu = PopupMenu(context, holder.binding.menuIcon)
             menu.inflate(R.menu.song_menu)
@@ -62,6 +57,10 @@ class SongsListAdapter(var context: Context, var songsList: ArrayList<SongsModel
             }
             menu.show()
         }
+    }
+
+    private fun bindData(binding: SongsListAdapterItemBinding, songsModel: SongsModel) {
+        binding.songsData = songsModel
     }
 
     override fun getItemCount(): Int {

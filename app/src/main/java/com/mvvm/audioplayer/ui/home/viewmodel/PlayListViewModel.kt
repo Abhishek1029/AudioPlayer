@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayListViewModel(var repository: PlayListRepository) : ViewModel() {
+class PlayListViewModel() : ViewModel() {
 
     var playlistdata = MutableLiveData<List<PlaylistEntity>>()
 

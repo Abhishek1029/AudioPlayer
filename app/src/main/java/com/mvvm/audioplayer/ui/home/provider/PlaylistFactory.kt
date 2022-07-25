@@ -7,8 +7,6 @@ import com.mvvm.audioplayer.ui.home.repository.SongsRepository
 import com.mvvm.audioplayer.ui.home.viewmodel.PlayListViewModel
 import com.mvvm.audioplayer.ui.home.viewmodel.SongsViewModel
 
-class PlaylistFactory(var repo:PlayListRepository): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-       return PlayListViewModel(repo) as T
-    }
+class PlaylistFactory{
+
 }

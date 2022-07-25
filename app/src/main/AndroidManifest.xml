@@ -2,33 +2,43 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mvvm.audioplayer">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
+        android:name=".AudioPlayerApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AudioPlayer">
+        android:theme="@style/Theme.AudioPlayer"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.onboarding.activity.OnBoardingActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.home.activity.HomeActivity"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.onboarding.activity.OnBoardingActivity">
-
-        </activity>
+        <service android:name=".utils.service.AudioPlayerService"
+            android:exported="true"/>
+        <activity android:name=".ui.player.activity.PlayerActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

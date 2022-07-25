@@ -13,10 +13,11 @@ import com.mvvm.audioplayer.ui.home.fragment.AlbumFragment
 import com.mvvm.audioplayer.ui.home.fragment.ArtistFragment
 import com.mvvm.audioplayer.ui.home.fragment.PlaylistFragment
 import com.mvvm.audioplayer.ui.home.fragment.SongsFragment
-import com.mvvm.audioplayer.ui.home.provider.SongsFactory
 import com.mvvm.audioplayer.ui.home.repository.SongsRepository
 import com.mvvm.audioplayer.ui.home.viewmodel.SongsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     lateinit var activityHomeBinding: ActivityHomeBinding
     var viewPagerAdapter: ViewPagerAdapter? = null

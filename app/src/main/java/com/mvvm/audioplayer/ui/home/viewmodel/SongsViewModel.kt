@@ -4,25 +4,25 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mvvm.audioplayer.data.SongsModel
 import com.mvvm.audioplayer.ui.home.repository.SongsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val TAG = "SongsViewModel"
-
-class SongsViewModel(var respo:SongsRepository) : ViewModel() {
+@HiltViewModel
+class SongsViewModel @Inject constructor(val respo:SongsRepository):ViewModel(){
 
     var songslist:MutableLiveData<ArrayList<SongsModel>> = MutableLiveData()
-
-
 
     override fun onCleared() {
         super.onCleared()
         Log.e(TAG, "onCleared: executed")
     }
-    fun getSongsList():MutableLiveData<ArrayList<SongsModel>>
-    {
-        songslist =respo.getSongsList()
-
-        return songslist
+  suspend  fun getSongsList() {
+            Log.e(TAG, "getSongsList: ${respo.getSongsList().size}",)
+            songslist.postValue(respo.getSongsList())
     }
 }
