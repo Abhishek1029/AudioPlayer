@@ -18,7 +18,9 @@ private const val TAG = "SongsViewModel"
 @HiltViewModel
 class SongsViewModel @Inject constructor(val respo: SongsRepository) : ViewModel() {
 
-    var songslist: MutableLiveData<ArrayList<SongsModel>> = MutableLiveData()
+    private val _songsList: MutableLiveData<List<SongsModel>> = MutableLiveData()
+    val songsList
+        get() = _songsList
 
     override fun onCleared() {
         super.onCleared()
@@ -26,7 +28,7 @@ class SongsViewModel @Inject constructor(val respo: SongsRepository) : ViewModel
     }
 
     suspend fun getSongsList() {
-        songslist.postValue(
+        _songsList.postValue(
             respo.getSongsList(
                 respo.getSongCursor(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -41,7 +43,9 @@ class SongsViewModel @Inject constructor(val respo: SongsRepository) : ViewModel
                     ),
                     null
                 )
-            )
+            ).filter {
+                it.path.endsWith(".mp3")
+            }
         )
     }
 }

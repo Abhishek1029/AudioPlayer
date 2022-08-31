@@ -88,15 +88,24 @@ class SongsFragment : Fragment() {
     }
 
     private fun observeSongData() {
-        songsViewModel!!.songslist.observe(viewLifecycleOwner) {
-            Log.e(TAG, "observeSongData: ${it.size}" )
+        songsViewModel!!.songsList.observe(viewLifecycleOwner) {
+            Log.e(TAG, "observeSongData: ${it.size}")
             songsList.addAll(it)
-            songsListAdapter = SongsListAdapter(requireActivity(), songsList,(activity as HomeActivity).player)
+            songsListAdapter = SongsListAdapter(
+                requireActivity(),
+                songsList,
+                (activity as HomeActivity).player
+            )
             fragmentSongsBinding?.songRecycler?.adapter = songsListAdapter
         }
     }
 
-    companion object{
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentSongsBinding = null
+    }
+
+    companion object {
         private const val TAG = "SongsFragment"
     }
 }
