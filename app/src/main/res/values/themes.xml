@@ -12,12 +12,56 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
-    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_bottom_dialog</item>
+    </style>
+
+<!--    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
     </style>
     <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/rounded_bottom_dialog</item>
+    </style>-->
+
+    <style name="MaterialAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="materialAlertDialogBodyTextStyle">
+            @style/AppTextAppearance.MaterialAlertDialog.Body
+        </item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/AppTextAppearance.MaterialAlertDialog.Title
+        </item>
+        <item name="buttonBarPositiveButtonStyle">
+            @style/AppTextAppearance.MaterialAlertDialog.Button
+        </item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/AppTextAppearance.MaterialAlertDialog.Button
+        </item>
+        <item name="buttonBarNeutralButtonStyle">
+            @style/AppTextAppearance.MaterialAlertDialog.Button
+        </item>
+    </style>
+
+    <style name="AppTextAppearance.MaterialAlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="AppTextAppearance.MaterialAlertDialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">16dp</item>
+    </style>
+
+    <style name="AppTextAppearance.MaterialAlertDialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

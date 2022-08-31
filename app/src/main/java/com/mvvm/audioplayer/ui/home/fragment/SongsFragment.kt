@@ -11,12 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.gson.Gson
 import com.mvvm.audioplayer.data.SongsModel
 import com.mvvm.audioplayer.databinding.FragmentSongsBinding
 import com.mvvm.audioplayer.di.CustomAnnotation.CustomeAnotation1
 import com.mvvm.audioplayer.roomdb.AudioPlayerDB
 import com.mvvm.audioplayer.roomdb.PlaylistEntity
+import com.mvvm.audioplayer.ui.home.activity.HomeActivity
 import com.mvvm.audioplayer.ui.home.repository.SongsRepository
 import com.mvvm.audioplayer.ui.home.viewmodel.SongsViewModel
 import com.mvvm.audioplayer.ui.home.adapter.SongsListAdapter
@@ -89,7 +91,7 @@ class SongsFragment : Fragment() {
         songsViewModel!!.songslist.observe(viewLifecycleOwner) {
             Log.e(TAG, "observeSongData: ${it.size}" )
             songsList.addAll(it)
-            songsListAdapter = SongsListAdapter(requireActivity(), songsList)
+            songsListAdapter = SongsListAdapter(requireActivity(), songsList,(activity as HomeActivity).player)
             fragmentSongsBinding?.songRecycler?.adapter = songsListAdapter
         }
     }

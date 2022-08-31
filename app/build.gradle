@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 
 }
 apply from: '../dependencies.gradle'
@@ -78,7 +79,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelLiveData"
-    implementation "androidx.media3:media3-exoplayer:$media3_version"
+/*    implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-exoplayer-dash:$media3_version"
-    implementation "androidx.media3:media3-ui:$media3_version"
+    implementation "androidx.media3:media3-ui:$media3_version"*/
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.github.Adonai:jaudiotagger:2.3.15'
 }

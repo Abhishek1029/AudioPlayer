@@ -8,4 +8,19 @@
     <string name="welcome_to_audio_player">Welcome to Audio Player</string>
     <string name="redefine_music">Redefine Music</string>
     <string name="explore_the_feature">Explore the feature</string>
+    <string name="go_to_album">Go To Album</string>
+    <string name="go_to_artist">Go To Artist</string>
+    <string name="share">Share</string>
+    <string name="details">Details</string>
+    <string name="file_path">File Path</string>
+    <string name="file_name">File Name</string>
+    <string name="size">Size</string>
+    <string name="length">Length</string>
+    <string name="file_size">File Size</string>
+    <string name="set_as_ringtone">Set as Ringtone</string>
+    <string name="set_ringtone">Set Ringtone</string>
+    <string name="message_set_ringtone">Allow Audio Player to modify audio settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="song_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
 </resources>

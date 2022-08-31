@@ -11,3 +11,11 @@ fun Cursor.getString(columnName: String): String {
         throw IllegalArgumentException("invalid column $columnName", exception)
     }
 }
+
+fun Cursor.getLong(columnName: String): Long {
+    try {
+        return getLong(getColumnIndexOrThrow(columnName))
+    } catch (exception: Exception) {
+        throw IllegalArgumentException("invalid column $columnName", exception)
+    }
+}

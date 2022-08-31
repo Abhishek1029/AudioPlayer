@@ -8,22 +8,91 @@
 
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="center"
-        android:id="@+id/tab"
         app:tabIndicatorColor="@color/black"
-        app:tabTextColor="@color/black"/>
+        app:tabTextColor="@color/black" />
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/viewPager"
+        app:layout_constraintBottom_toTopOf="@id/homePlayerWrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tab" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/homePlayerWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/iconMusic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_music_note_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/homeSongTitleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iconMusic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Current Playing Song"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:ellipsize="marquee"
+            app:layout_constraintWidth_percent=".6"
+            android:singleLine="true"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/homePrevIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent=".1"
+            app:layout_constraintStart_toEndOf="@id/homeSongTitleTV"
+            app:drawableStartCompat="@drawable/ic_baseline_skip_previous_24"/>
+
+        <TextView
+            android:id="@+id/homePlayPauseIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/homePrevIcon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent=".1"
+            app:drawableStartCompat="@drawable/ic_baseline_play_arrow_24"/>
+
+        <TextView
+            android:id="@+id/homeNextIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/homePlayPauseIcon"
+            app:layout_constraintWidth_percent=".1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_skip_next_24"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

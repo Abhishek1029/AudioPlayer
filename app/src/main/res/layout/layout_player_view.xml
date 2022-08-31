@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/playerView"
+    android:focusable="true"
+    android:clickable="true"
+    android:elevation="100dp">
+
+<!--<com.jgabrielfreitas.core.BlurImageView
+    android:id="@+id/blurImageView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:contentDescription="@string/app_name"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
