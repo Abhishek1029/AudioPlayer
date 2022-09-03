@@ -1,14 +1,10 @@
 package com.mvvm.audioplayer.ui.home.adapter
 
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Service
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -21,13 +17,13 @@ import com.mvvm.audioplayer.data.SongsModel
 import com.mvvm.audioplayer.databinding.SongsListAdapterItemBinding
 import com.mvvm.audioplayer.ui.home.activity.HomeActivity
 import com.mvvm.audioplayer.ui.home.fragment.BottomDialogFragment
+import com.mvvm.audioplayer.utils.helper.Constants
 import com.mvvm.audioplayer.utils.helper.Helper
-
-private const val TAG = "SongsListAdapter"
+import com.mvvm.audioplayer.utils.service.AudioPlayerService
 
 class SongsListAdapter(
     var context: Context,
-    var songsList: ArrayList<SongsModel>,
+    private var songsList: ArrayList<SongsModel>,
     private val player: ExoPlayer
 ) :
     RecyclerView.Adapter<SongsListAdapter.SongsHolder>() {
@@ -49,7 +45,10 @@ class SongsListAdapter(
             menu.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.playlist -> {
-                        Helper.showDialogBox(context as Activity, songsList[holder.adapterPosition])
+                        Helper.showDialogBox(
+                            context as Activity,
+                            songsList[holder.bindingAdapterPosition]
+                        )
 
                         /*
    */
@@ -79,10 +78,11 @@ class SongsListAdapter(
     ) {
         binding.songsData = songsModel
         /**
-         * Play song on item click
+         * start audio service
          */
         binding.parent.setOnClickListener {
-            player.apply {
+            startService(songsModel)
+            /*player.apply {
                 if (!isPlaying) {
                     setMediaItems(getMediaItems(), position, 0)
                 } else {
@@ -91,13 +91,13 @@ class SongsListAdapter(
                 }
                 prepare()
                 play()
-            }
+            }*/
         }
 
         binding.parent.setOnLongClickListener {
             BottomDialogFragment.createBottomDialog(songsModel).show(
                 (context as HomeActivity).supportFragmentManager,
-                "MusicBottomDialog"
+                Constants.MusicBottomDialog
             )
             /**
              * returning true means that the event is handled by longPress click and no further handling is required
@@ -106,6 +106,24 @@ class SongsListAdapter(
              */
             true
         }
+    }
+
+    private fun startService(songsModel: SongsModel) {
+        Intent(context, AudioPlayerService::class.java).apply {
+            putExtra(Constants.AUDIO_URI, songsModel.path)
+        }.also {
+            context.startService(it)
+        }
+        bindService()
+    }
+
+    private fun bindService() {
+        val bindIntent = Intent(context, AudioPlayerService::class.java)
+        context.bindService(
+            bindIntent,
+            (context as HomeActivity).serviceConnection,
+            Service.BIND_AUTO_CREATE
+        )
     }
 
     private fun getMediaItems(): List<MediaItem> {

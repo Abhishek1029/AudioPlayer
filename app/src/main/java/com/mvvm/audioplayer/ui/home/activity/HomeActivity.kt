@@ -1,17 +1,17 @@
 package com.mvvm.audioplayer.ui.home.activity
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.view.size
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -19,12 +19,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mvvm.audioplayer.R
 import com.mvvm.audioplayer.databinding.ActivityHomeBinding
 import com.mvvm.audioplayer.ui.home.adapter.ViewPagerAdapter
-import com.mvvm.audioplayer.ui.home.fragment.AlbumFragment
-import com.mvvm.audioplayer.ui.home.fragment.ArtistFragment
-import com.mvvm.audioplayer.ui.home.fragment.PlaylistFragment
-import com.mvvm.audioplayer.ui.home.fragment.SongsFragment
-import com.mvvm.audioplayer.ui.home.repository.SongsRepository
-import com.mvvm.audioplayer.ui.home.viewmodel.SongsViewModel
 import com.mvvm.audioplayer.ui.player.activity.PlayerActivity
 import com.mvvm.audioplayer.utils.helper.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -189,6 +183,17 @@ class HomeActivity : AppCompatActivity() {
         @SuppressLint("ClickableViewAccessibility")
         override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
             return gestureController.onTouchEvent(p1)
+        }
+
+    }
+
+    val serviceConnection = object : ServiceConnection{
+        override fun onServiceConnected(p0: ComponentName?, binder: IBinder?) {
+            Log.e(TAG, "onServiceConnected: ", )
+        }
+
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            Log.e(TAG, "onServiceDisconnected: ", )
         }
 
     }

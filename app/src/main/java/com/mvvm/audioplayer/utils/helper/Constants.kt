@@ -5,4 +5,6 @@ object Constants {
     const val SONG_TITLE = "song_title"
     const val SONG_DURATION = "song_duration"
     const val SONG = "song"
+    const val MusicBottomDialog = "MusicBottomDialog"
+    const val AUDIO_URI = "audio_uri"
 }
