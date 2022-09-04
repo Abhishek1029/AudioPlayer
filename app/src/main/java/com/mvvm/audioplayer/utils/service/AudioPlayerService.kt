@@ -26,31 +26,16 @@ class AudioPlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        // creating Exo Player instance
+        exoPlayer = ExoPlayer.Builder(applicationContext).build()
+
+        // build player notification
         playerNotificationManager =
             PlayerNotificationManager.Builder(applicationContext, NOTIFICATION_ID, CHANNEL_ID)
                 .setChannelImportance(IMPORTANCE_HIGH)
                 .setChannelNameResourceId(R.string.app_name)
                 .setSmallIconResourceId(R.drawable.ic_launcher_foreground)
                 .build()
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.e(TAG, "onStartCommand: $exoPlayer")
-        // creating Exo Player instance
-        exoPlayer = ExoPlayer.Builder(applicationContext).build()
-        val mediaItem =
-            MediaItem.Builder()
-                .setUri(intent?.getStringExtra(Constants.AUDIO_URI))
-                .build()
-        exoPlayer.apply {
-            if (isPlaying) {
-                stop()
-            }
-            setMediaItem(mediaItem)
-            prepare()
-            play()
-        }
-        return START_STICKY
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -61,6 +46,21 @@ class AudioPlayerService : Service() {
     class AudioServiceBinder : Binder() {
         fun getPlayerService(): AudioPlayerService {
             return AudioPlayerService()
+        }
+    }
+
+    fun playSong(audioFile:String){
+        val mediaItem =
+            MediaItem.Builder()
+                .setUri(audioFile)
+                .build()
+        exoPlayer.apply {
+            if (isPlaying) {
+                pause()
+            }
+            setMediaItem(mediaItem)
+            prepare()
+            play()
         }
     }
 

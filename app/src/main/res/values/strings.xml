@@ -23,4 +23,9 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="song_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
+    <string name="songs">Songs</string>
+    <string name="album">Album</string>
+    <string name="artist">Artist</string>
+    <string name="playlist">Playlist</string>
+    <string name="channel_description">Play Audio FIles</string>
 </resources>

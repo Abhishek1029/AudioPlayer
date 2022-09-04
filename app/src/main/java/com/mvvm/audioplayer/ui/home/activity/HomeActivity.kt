@@ -21,10 +21,12 @@ import com.mvvm.audioplayer.databinding.ActivityHomeBinding
 import com.mvvm.audioplayer.ui.home.adapter.ViewPagerAdapter
 import com.mvvm.audioplayer.ui.player.activity.PlayerActivity
 import com.mvvm.audioplayer.utils.helper.Constants
+import com.mvvm.audioplayer.utils.service.AudioPlayerService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
 private const val TAG = "HomeActivity"
+
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     lateinit var activityHomeBinding: ActivityHomeBinding
@@ -40,10 +42,10 @@ class HomeActivity : AppCompatActivity() {
 
         TabLayoutMediator(activityHomeBinding.tab, activityHomeBinding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Songs"
-                1 -> tab.text = "Album"
-                2 -> tab.text = "Artist"
-                3 -> tab.text = "Playlist"
+                0 -> tab.text = getString(R.string.songs)
+                1 -> tab.text = getString(R.string.album)
+                2 -> tab.text = getString(R.string.artist)
+                3 -> tab.text = getString(R.string.playlist)
 
             }
         }.attach()
@@ -63,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
                 playPausePlayer()
             }
 
-           // homePlayerWrapper.setOnTouchListener(PlayerGestureDetector(this@HomeActivity))
+            // homePlayerWrapper.setOnTouchListener(PlayerGestureDetector(this@HomeActivity))
             homePlayerWrapper.setOnClickListener {
 
                 Intent(this@HomeActivity, PlayerActivity::class.java).apply {
@@ -180,6 +182,7 @@ class HomeActivity : AppCompatActivity() {
                     return false
                 }
             })
+
         @SuppressLint("ClickableViewAccessibility")
         override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
             return gestureController.onTouchEvent(p1)
@@ -187,13 +190,16 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    val serviceConnection = object : ServiceConnection{
+    val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, binder: IBinder?) {
-            Log.e(TAG, "onServiceConnected: ", )
+            val binder: AudioPlayerService.AudioServiceBinder =
+                binder as AudioPlayerService.AudioServiceBinder
+            val service:AudioPlayerService = binder.getPlayerService()
+            service.playSong("")
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
-            Log.e(TAG, "onServiceDisconnected: ", )
+            Log.e(TAG, "onServiceDisconnected: ")
         }
 
     }

@@ -7,4 +7,5 @@ object Constants {
     const val SONG = "song"
     const val MusicBottomDialog = "MusicBottomDialog"
     const val AUDIO_URI = "audio_uri"
-}
+    const val NOTIFICATION_ID = 1008
+    const val NOTIFICATION_CHANNEL_ID = "audio_player_notification"
