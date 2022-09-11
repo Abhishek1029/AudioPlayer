@@ -4,7 +4,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.mvvm.audioplayer.R
+import com.mvvm.audioplayer.data.Album
 import com.mvvm.audioplayer.data.SongsModel
 import com.mvvm.audioplayer.utils.AudioUtils
 import com.mvvm.audioplayer.utils.helper.Helper
@@ -20,6 +22,19 @@ fun ImageView.loadSongsThumbnail(songsModel: SongsModel) {
     Glide.with(this.context)
         .asBitmap()
         .load(AudioUtils.getUriFromAlbumId(songsModel.albumId.toLong()))
+        .into(this)
+}
+
+@BindingAdapter("loadAlbumThumbnail")
+fun ImageView.loadAlbumThumbnail(album: Album) {
+    Glide.with(this.context)
+        .asBitmap()
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.onboarding_slider_image_1)
+                .error(R.drawable.onboarding_slider_image_1)
+        )
+        .load(AudioUtils.getUriFromAlbumId(album.id.toLong()))
         .into(this)
 }
 

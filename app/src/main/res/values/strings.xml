@@ -28,4 +28,6 @@
     <string name="artist">Artist</string>
     <string name="playlist">Playlist</string>
     <string name="channel_description">Play Audio FIles</string>
+    <string name="album_name">Album Name</string>
+    <string name="songs_count">Songs Count</string>
 </resources>

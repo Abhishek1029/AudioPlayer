@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +39,7 @@ import javax.inject.Inject
 class SongsFragment : Fragment() {
     @Inject
     lateinit var glide: RequestManager
-    var songsViewModel: SongsViewModel? = null
+    private val songsViewModel: SongsViewModel by activityViewModels()
     var fragmentSongsBinding: FragmentSongsBinding? = null
     var songsListAdapter: SongsListAdapter? = null
     var songsList: ArrayList<SongsModel> = ArrayList()
@@ -60,20 +62,14 @@ class SongsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        songsViewModel = ViewModelProvider(this)[SongsViewModel::class.java]
-        //songsListAdapter = SongsListAdapter(requireActivity(), songsList)
-
+        // accessing viewModel on mainThread before accessing it with lifecycleScope Coroutine to avoid crash
+        songsViewModel
         fragmentSongsBinding!!.songRecycler.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            //adapter = songsListAdapter
-
         }
-
-        lifecycleScope.launch(Dispatchers.IO)
-        {
-            songsViewModel!!.getSongsList()
-
+        lifecycleScope.launch(Dispatchers.IO) {
+            songsViewModel.getSongsList()
         }
         observeSongData()
     }
@@ -88,7 +84,7 @@ class SongsFragment : Fragment() {
     }
 
     private fun observeSongData() {
-        songsViewModel!!.songsList.observe(viewLifecycleOwner) {
+        songsViewModel.songsList.observe(viewLifecycleOwner) {
             Log.e(TAG, "observeSongData: ${it.size}")
             songsList.addAll(it)
             songsListAdapter = SongsListAdapter(
