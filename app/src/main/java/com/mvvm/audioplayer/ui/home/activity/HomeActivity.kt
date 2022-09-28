@@ -195,7 +195,7 @@ class HomeActivity : AppCompatActivity() {
             val binder: AudioPlayerService.AudioServiceBinder =
                 binder as AudioPlayerService.AudioServiceBinder
             val service:AudioPlayerService = binder.getPlayerService()
-            service.playSong("")
+           // service.playSong("")
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {

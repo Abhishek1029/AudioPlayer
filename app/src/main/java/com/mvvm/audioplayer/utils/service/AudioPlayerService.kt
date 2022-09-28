@@ -26,9 +26,6 @@ class AudioPlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        // creating Exo Player instance
-        exoPlayer = ExoPlayer.Builder(applicationContext).build()
-
         // build player notification
         playerNotificationManager =
             PlayerNotificationManager.Builder(applicationContext, NOTIFICATION_ID, CHANNEL_ID)
@@ -42,6 +39,10 @@ class AudioPlayerService : Service() {
         return audioServiceBinder
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.getStringExtra(Constants.AUDIO_URI)?.let { playSong(it) }
+        return START_STICKY
+    }
     // binder class
     class AudioServiceBinder : Binder() {
         fun getPlayerService(): AudioPlayerService {

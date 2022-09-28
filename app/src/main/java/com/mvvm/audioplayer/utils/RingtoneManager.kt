@@ -31,7 +31,7 @@ class RingtoneManager(val context: Context) {
                     Settings.System.putString(
                         contentResolver,
                         Settings.System.RINGTONE,
-                        uri.toString()
+                        uri?.toString()
                     )
                     val message =
                         context.getString(R.string.song_has_been_set_as_ringtone, it.getString(0))

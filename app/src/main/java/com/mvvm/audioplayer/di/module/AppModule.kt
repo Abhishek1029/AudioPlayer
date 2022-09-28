@@ -21,29 +21,25 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesRoomDb(context: Context): AudioPlayerDB
-    {
-        return Room.databaseBuilder(context,AudioPlayerDB::class.java,"playlistdb").build()
+    fun providesRoomDb(context: Context): AudioPlayerDB {
+        return Room.databaseBuilder(context, AudioPlayerDB::class.java, "playlistdb").build()
     }
 
     @Singleton
     @Provides
-    fun provideApplicationContext(application: Application):Context
-    {
-      return application.applicationContext
+    fun provideApplicationContext(application: Application): Context {
+        return application.applicationContext
     }
 
     @Singleton
     @Provides
-    fun provideSongsRepo(context: Context):SongsRepository
-    {
-
+    fun provideSongsRepo(context: Context): SongsRepository {
         return SongsRepository(context)
     }
+
     @Singleton
     @Provides
-    fun provideGlideimage(context: Context):RequestManager
-    {
-         return Glide.with(context)
+    fun provideGlideimage(context: Context): RequestManager {
+        return Glide.with(context)
     }
 }

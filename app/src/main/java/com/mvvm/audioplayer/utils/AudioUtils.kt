@@ -35,12 +35,12 @@ object AudioUtils {
         return audioFile.audioHeader
     }
 
-    fun getSongUri(id: Long?): Uri {
+    fun getSongUri(id: Long?): Uri? {
             return id?.let {
                 ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     it
                 )
-            }!!
+            }
 
     }
 }
