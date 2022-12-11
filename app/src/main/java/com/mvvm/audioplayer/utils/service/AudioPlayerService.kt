@@ -43,14 +43,14 @@ class AudioPlayerService : Service() {
         intent?.getStringExtra(Constants.AUDIO_URI)?.let { playSong(it) }
         return START_STICKY
     }
+
     // binder class
-    class AudioServiceBinder : Binder() {
-        fun getPlayerService(): AudioPlayerService {
-            return AudioPlayerService()
-        }
+    inner class AudioServiceBinder : Binder() {
+        val getPlayerService
+            get() = this@AudioPlayerService
     }
 
-    fun playSong(audioFile:String){
+    fun playSong(audioFile: String) {
         val mediaItem =
             MediaItem.Builder()
                 .setUri(audioFile)

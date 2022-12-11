@@ -194,8 +194,12 @@ class HomeActivity : AppCompatActivity() {
         override fun onServiceConnected(p0: ComponentName?, binder: IBinder?) {
             val binder: AudioPlayerService.AudioServiceBinder =
                 binder as AudioPlayerService.AudioServiceBinder
-            val service:AudioPlayerService = binder.getPlayerService()
-           // service.playSong("")
+            val service: AudioPlayerService = binder.getPlayerService
+            // service.playSong("")
+            activityHomeBinding.apply {
+                homeSongTitleTV.text =
+                    service.exoPlayer.currentMediaItem?.mediaMetadata?.title ?: ""
+            }
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
